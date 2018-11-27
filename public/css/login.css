@@ -1,0 +1,33 @@
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  background: url(../images/bg2.jpg) no-repeat;
+  background-size: 100% 100%;
+  padding-top: 200px;
+}
+
+.login-box {
+  width: 500px;
+  height: 300px;
+  margin: auto;
+  background: #f5f5f5;
+  opacity: 0.95;
+  padding: 60px 30px;
+  border-radius: 10px;
+  box-shadow: -2px -2px 3px #999 inset;
+}
+.login-box .form-horizontal .btn-default {
+  width: 80px;
+  float: right;
+}
+.login-box .form-horizontal a {
+  margin-right: 20px;
+  font-size: 14px;
+  line-height: 34px;
+  float: right;
+}
+
+/*# sourceMappingURL=login.css.map */

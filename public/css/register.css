@@ -1,0 +1,48 @@
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  background: url(../images/bg2.jpg) no-repeat;
+  background-size: 100% 100%;
+  padding-top: 200px;
+}
+
+label {
+  font-size: 14px;
+}
+
+.register-box {
+  border-radius: 10px;
+  width: 500px;
+  min-height: 400px;
+  margin: auto;
+  background: #f5f5f5;
+  opacity: 0.97;
+  box-shadow: -2px -2px 3px #999 inset;
+}
+.register-box .form-horizontal {
+  padding: 30px 20px;
+}
+.register-box .form-horizontal .now {
+  margin-left: 15px;
+}
+
+.col-sm-2 {
+  padding-right: 0;
+}
+
+.radio {
+  line-height: 20px;
+}
+
+.control-label {
+  margin-top: 3px;
+}
+
+.btn-default {
+  width: 80px;
+}
+
+/*# sourceMappingURL=register.css.map */

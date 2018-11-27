@@ -1,0 +1,102 @@
+body, html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    background: url(../images/bg.jpg) no-repeat;
+    background-size: 100% 100%;
+}
+
+a:hover{
+    text-decoration: none;
+}
+.container {
+    z-index: 20;
+    height: 100%;
+    width: 1200px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    .bms-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 100px;
+        width: 100%;
+        padding: 0 50px;
+        border-bottom: 1px solid skyblue;
+        .head-left{
+            .logo {
+                font-size: 30px;
+                font-weight: 600;
+                color: #f5f5f5;
+            }
+        } 
+        .head-right {
+            display: flex;
+            align-items: center;
+            p{
+                margin-right: 10px;
+                color: #f5f5f5;
+            }
+        }
+    }
+    .bms-main {
+        flex: 1;
+        display: flex;
+        background: white;
+        opacity: 0.97;
+        .bms-menu{
+            width: 300px;
+            height: 100%;
+            overflow-y: auto;
+            border-right: 3px solid skyblue;
+            box-shadow: 1px 1px 3px #999;
+    
+            li{
+                text-align: center;
+                height: 50px;
+                line-height: 50px;
+                border-bottom: 1px solid skyblue;
+                &:hover{
+                    background: skyblue;
+                    a{
+                        color: white;
+                        display: block;
+                    }
+                }
+            }
+            
+        }
+        .main-body{
+            padding: 20px 50px;
+            flex:1;
+            form{
+                margin-bottom: 20px;
+            }
+        }
+    }
+    .bms-foot{
+        height: 50px;
+    }
+}
+
+
+// ==============================
+
+.table-hover>tbody>tr:hover {
+    background-color: #ccc;
+}
+
+.table{
+    box-shadow: 1px 1px 1px #999;
+}
+
+.pagination{
+    float: right;
+}
+
+
+
+
