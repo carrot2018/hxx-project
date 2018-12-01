@@ -9,7 +9,10 @@
     <link rel="stylesheet" href="/lib/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/common.css">
     <link rel="stylesheet" href="/css/reset.css">
-    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/brand.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/public.js"></script>
+    <script src="/js/head.js"></script>
 </head>
 
 <body>
@@ -17,10 +20,185 @@
         <%- include('./common/head')%>
             <div class="bms-main">
                 <%- include('./common/menu')%>
-                    <div class="mian-body">品牌管理</div>
+                    <div class="main-body">
+                        <button type="button" id="add" class="btn btn-primary">新增品牌</button>
+                        <div class="add-box">
+                            <form action="/brand/addBrand" method="POST" enctype="multipart/form-data">
+                                <h3>新增</h3>
+
+                                <div class="form-group">
+                                    <label for="form-control" class="col-sm-2 control-label">品牌名称</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="brandName" placeholder="手机名称">
+                                    </div>
+                                </div>
+
+                                <!-- <div class="form-group">
+                                    <label for="form-control" class="col-sm-2 control-label">品牌</label>
+                                    <select name="brand" class="form-control">
+                                        <option id="one" selected="0">-=请选择一个品牌=-</option>
+                                        <option value="苹果">苹果</option>
+                                        <option value="小米">小米</option>
+                                        <option value="三星">三星</option>
+                                        <option value="华为">华为</option>
+                                        <option value="VIVO">VIVO</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="form-control" class="col-sm-2 control-label">官方指导价</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="gfPrice" placeholder="请输入官方指导价">
+                                    </div>
+                                </div> -->
+
+                                <!-- <div class="form-group">
+                                    <label for="form-control" class="col-sm-2 control-label">二手回收价</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="esPrice" placeholder="请输入二手回收价">
+                                    </div>
+                                </div> -->
+
+                                <div class="form-group">
+                                    <label for="#" class="col-sm-2 control-label">图片</label>
+                                    <div class="col-sm-10">
+                                        <input type="file" name="file" />
+                                    </div>
+                                </div>
+
+                                <button type="button" class="btn btn-default cancel">取消</button>
+                                <button type="submit" class="btn btn-default affirm">确认</button>
+
+                            </form>
+                        </div>
+                        <!-- <form action="/phone/addPhone" method="POST" enctype="multipart/form-data">
+                            <input type="file" name="file" />
+                            <input type="text" name="phoneName" placeholder="手机名称">
+
+                            <input type="submit" value="提交">
+                        </form> -->
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>序号</th>
+                                    <th>品牌LOGO</th>
+                                    <th>品牌名称</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody">
+                                <% for(var i = 0; i < list.length; i++) {%>
+                                    <tr>
+                                        <th scope="row">
+                                            <%= i+1 %>
+                                        </th>
+                                        <td>
+                                            <img src="/<%= list[i].fileName %>" alt="">
+                                        </td>
+                                        <td class="ejsbn">
+                                            <%= list[i].brandName %>
+                                        </td>
+                                        <td class="operate">
+                                            <a getId="<%= list[i]._id %>" class="update">修改</a>
+                                            <a href="/brand/delete?id=<%= list[i]._id %>" class="delete">删除</a>
+                                        </td>
+                                    </tr>
+                                    <%}%>
+                            </tbody>
+                        </table>
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination">
+                                <li>
+                                    <a href="/brand?page=<%= currentPage - 1 < 1 ? 1: currentPage - 1 %>&pageSize=<%= pageSize %>" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <% for (var i = 0; i < totalPage; i++) {%>
+                                    <li class="<%= currentPage === (i+1) ? 'active': '' %>">
+                                        <a href="/brand?page=<%= i+1 %>&pageSize=<%= pageSize %>">
+                                            <%= i + 1%>
+                                        </a>
+                                    </li>
+                                    <%}%>
+                                        <li>
+                                            <a href="/brand?page=<%= currentPage + 1 > totalPage ? totalPage: currentPage + 1 %>&pageSize=<%= pageSize %>" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                            </ul>
+                        </nav>
+                    </div>
+
+            </div>
+            <div class="update-box">
+                <form action="/brand/update" method="POST" enctype="multipart/form-data">
+                    <h3>修改</h3>
+                    <input style="display: none" type="text" class="postId" name="postId" value="">
+                    <div class="form-group">
+                        <label for="form-control" class="col-sm-2 control-label">品牌名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control brandName1" name="brandName1" placeholder="手机名称">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="#" class="col-sm-2 control-label">图片</label>
+                        <div class="col-sm-10">
+                            <input type="file" name="file" />
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-default cancel">取消</button>
+                    <button type="submit" class="btn btn-default affirm">确认</button>
+                </form>
             </div>
             <%- include('./common/foot')%>
     </div>
 </body>
 
 </html>
+<script>
+
+    // <script>
+    $(document).ready(function () {
+        $("#add").click(function () {
+            $(".add-box").fadeIn();
+        });
+
+        $(".cancel").click(function () {
+            $(".add-box").fadeOut();
+        });
+        // var isAdmin = getCookie("isAdmin");
+        // isAdmin === "ture" ? ($.trim($("#tbody").children(".ejsAdm").html() === "ture" ? $(".update").hide()));
+        //通过事件委托来获取当前行的数据
+        $(function () {
+            $("#tbody").on("click", "tr", function (event) {
+                var target = $(event.target);
+                var brandVal = $.trim(target.parents("tr").children(".ejsBrand").html());
+
+                //拿到ejs模板里面“修改”按钮的“getId”属性的值
+                var x = target.attr("getId");
+
+                //然后用“修改”表单里的隐藏了的框“postId”的val来装这个“修改按钮”的值
+                $(".postId").attr("value", x);
+
+                //把当前行数据添加到对应框的val
+                $(".brandName1").val($.trim(target.parents("tr").children(".ejsbn").html()));
+                // $(".Brand1").val($.trim(target.parents("tr").children(".ejsBrand").html()));
+                // $(".gfPrice1").val($.trim(target.parents("tr").children(".ejsPrice").html()));
+                // $(".esPrice1").val($.trim(target.parents("tr").children(".ejsSecond").html()));
+                // $(".brand1").find($("option[value=" + brandVal + "]")).attr("selected", "selected").siblings().removeAttr("selected");
+
+                //显示修改框
+                $(".update-box").fadeIn();
+            })
+        });
+
+        //点击修改框的取消按钮，修改框消失
+        $(".cancel").click(function () {
+            $(".update-box").fadeOut();
+        });
+
+    })
+</script>

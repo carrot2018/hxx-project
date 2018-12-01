@@ -8,6 +8,7 @@
     <title>某公司后台管理系统</title>
     <link rel="stylesheet" href="/lib/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/users.css">
     <link rel="stylesheet" href="/css/reset.css">
     <link rel="stylesheet" href="/css/index.css">
 </head>
@@ -18,11 +19,11 @@
             <div class="bms-main">
                 <%- include('./common/menu')%>
                     <div class="main-body">
-                        <form class="search-bar form-inline">
-                            <input class="form-control" type="text">
-                            <button class="btn btn-warning">搜索</button>
+                        <form action="/users/search" method="GET" class="search-bar form-inline">
+                            <input id="searchInput" class="form-control" name="name" type="text">
+                            <button type="submit" id="searchBtn" class="btn btn-warning">搜索</button>
                         </form>
-                        <table class="table table-bordered table-hover">
+                        <table class="table table-bordered table-hover table-striped">
                             <thead>
                                 <tr>
                                     <th>序号</th>
@@ -34,7 +35,7 @@
                                     <th>操作</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="tbody">
                                 <% for(var i = 0; i < list.length; i++) {%>
                                     <tr>
                                         <th scope="row">
@@ -43,20 +44,22 @@
                                         <td>
                                             <%= list[i].username %>
                                         </td>
-                                        <td>
+                                        <td class="ejsNick">
                                             <%= list[i].nickname %>
                                         </td>
-                                        <td>
+                                        <td class="ejsSex">
                                             <%= list[i].sex %>
                                         </td>
-                                        <td>
+                                        <td class="ejsAge">
                                             <%= list[i].age %>
                                         </td>
-                                        <td>
+                                        <td class="ejsAdm">
                                             <%= list[i].isAdmin %>
                                         </td>
-                                        <td>
-                                            <%= list[i].isAdmin %>
+
+                                        <td class="operate">
+                                            <a getId="<%= list[i]._id %>" class="update">修改</a>
+                                            <a href="/users/delete?id=<%= list[i]._id %>" class="delete">删除</a>
                                         </td>
                                     </tr>
                                     <%}%>
@@ -65,36 +68,102 @@
                         <nav aria-label="Page navigation">
                             <ul class="pagination">
                                 <li>
-                                    <a href="#" aria-label="Previous">
+                                    <a href="/users?page=<%= currentPage - 1 < 1 ? 1: currentPage - 1 %>&pageSize=<%= pageSize %>" aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
                                 </li>
-                                <li class="active">
-                                    <a href="#">1</a>
-                                </li>
-                                <li>
-                                    <a href="#">2</a>
-                                </li>
-                                <li>
-                                    <a href="#">3</a>
-                                </li>
-                                <li>
-                                    <a href="#">4</a>
-                                </li>
-                                <li>
-                                    <a href="#">5</a>
-                                </li>
-                                <li>
-                                    <a href="#" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
+                                <% for (var i = 0; i < totalPage; i++) {%>
+                                    <li class="<%= currentPage === (i+1) ? 'active': '' %>">
+                                        <a href="/users?page=<%= i+1 %>&pageSize=<%= pageSize %>">
+                                            <%= i + 1%>
+                                        </a>
+                                    </li>
+                                    <%}%>
+                                        <li>
+                                            <a href="/users?page=<%= currentPage + 1 > totalPage ? totalPage: currentPage + 1 %>&pageSize=<%= pageSize %>" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
                             </ul>
                         </nav>
                     </div>
+            </div>
+            <div class="update-box">
+                <form action="/users/update" method="POST">
+                    <h3>修改</h3>
+                    <input style="display: none" type="text" class="postId" name="postId" value="">
+                    <div class="form-group">
+                        <label for="form-control" class="col-sm-2 control-label">昵称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="nickname" name="nickname" class="form-control" value="">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="form-control" class="col-sm-2 control-label">年龄</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="age" name="age" class="form-control" value="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="#" class="col-sm-2 control-label">性别</label>
+                        <div class="col-sm-10">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" class="sex" name="sex" id="optionsRadios1" value="男" checked="checked">男
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" class="sex1" name="sex" id="optionsRadios2" value="女">女
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-default cancel">取消</button>
+                    <button type="submit" class="btn btn-default affirm">确认</button>
+
+                </form>
             </div>
             <%- include('./common/foot')%>
     </div>
 </body>
 
 </html>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/public.js"></script>
+<script src="/js/head.js"></script>
+<script>
+    $(document).ready(function () {
+        var isAdmin = getCookie("isAdmin");
+        // isAdmin === "ture" ? ($.trim($("#tbody").children(".ejsAdm").html() === "ture" ? $(".update").hide()));
+        //通过事件委托来获取当前行的数据
+        $(function () {
+            $("#tbody").on("click", "tr", function (event) {
+                var target = $(event.target);
+
+                //拿到ejs模板里面“修改”按钮的“getId”属性的值
+                var x = target.attr("getId");
+
+                //然后用“修改”表单里的隐藏了的框“postId”的val来装这个“修改按钮”的值
+                $(".postId").attr("value", x);
+
+                //把当前行数据添加到对应框的val
+                $(".nickname").val($.trim(target.parents("tr").children(".ejsNick").html()));
+                $(".age").val($.trim(target.parents("tr").children(".ejsAge").html()));
+
+                //修改“修改表单”里男或女两个CheckBox的默认选定
+                $.trim(target.parents("tr").children(".ejsSex").html()) == "男" ? $(".sex").attr("checked", true) : $(".sex1").attr("checked", true);
+
+                //显示修改框
+                $(".update-box").fadeIn();
+            })
+        });
+
+        //点击修改框的取消按钮，修改框消失
+        $(".cancel").click(function () {
+            $(".update-box").fadeOut();
+        });
+
+    })
+</script>

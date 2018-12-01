@@ -25,27 +25,37 @@ a:hover{
         height: 100px;
         width: 100%;
         padding: 0 50px;
-        border-bottom: 1px solid skyblue;
         .head-left{
             .logo {
                 font-size: 30px;
                 font-weight: 600;
-                color: #f5f5f5;
+                color: #d0fc0d;
             }
         } 
         .head-right {
             display: flex;
             align-items: center;
-            p{
-                margin-right: 10px;
-                color: #f5f5f5;
+            .nickbox{
+                display: flex;
+                color: white;
+                font-size: 20px;
+                p{  
+                    margin-left:10px;  
+                }
+                .admin{
+                    font-size: 18px;
+                    color: aquamarine;
+                    margin-right: 5px;
+                }
             }
+            
         }
     }
     .bms-main {
         flex: 1;
         display: flex;
         background: white;
+        box-shadow: 2px 2px 5px #999;
         opacity: 0.97;
         .bms-menu{
             width: 300px;

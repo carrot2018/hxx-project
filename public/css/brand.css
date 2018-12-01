@@ -1,0 +1,109 @@
+.update {
+  cursor: pointer;
+  padding-right: 20px;
+}
+
+.delete {
+  color: #d64207;
+}
+.delete:hover {
+  color: red;
+}
+
+tr {
+  text-align: center;
+}
+tr td {
+  font-size: 24px;
+}
+
+.table > tbody > tr > th {
+  vertical-align: middle;
+  text-align: center;
+}
+
+.table > tbody > tr > td {
+  vertical-align: middle;
+}
+
+.operate {
+  text-align: center;
+}
+
+.main-body {
+  padding-right: 300px;
+}
+
+#add {
+  margin-bottom: 10px;
+}
+
+.add-box {
+  position: fixed;
+  top: 20%;
+  left: 40%;
+  border: 1px solid skyblue;
+  width: 500px;
+  height: 500px;
+  background: #f5f5f5;
+  padding: 20px;
+  z-index: 10;
+  display: none;
+}
+.add-box h3 {
+  font-weight: 600;
+  font-size: 30px;
+  margin-bottom: 30px;
+}
+.add-box .btn {
+  width: 60px;
+  margin: 20px;
+  float: right;
+}
+.add-box .affirm {
+  background: #337ab7;
+  color: white;
+}
+
+.update-box {
+  position: fixed;
+  top: 10%;
+  left: 35%;
+  border: 1px solid skyblue;
+  width: 500px;
+  height: 550px;
+  background: #f5f5f5;
+  padding: 20px;
+  display: none;
+}
+.update-box h3 {
+  font-weight: 600;
+  font-size: 30px;
+  margin-bottom: 30px;
+}
+.update-box .btn {
+  width: 60px;
+  margin: 20px;
+  float: right;
+}
+.update-box .affirm {
+  background: #337ab7;
+  color: white;
+}
+
+.col-sm-2 {
+  padding-left: 0;
+  padding-right: 0;
+  margin-top: 10px;
+  width: 80px;
+}
+
+.col-sm-10 {
+  width: 80.333333%;
+}
+
+.form-group {
+  padding: 20px;
+}
+
+/*# sourceMappingURL=brand.css.map */
