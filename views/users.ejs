@@ -54,12 +54,20 @@
                                             <%= list[i].age %>
                                         </td>
                                         <td class="ejsAdm">
-                                            <%= list[i].isAdmin %>
+                                            <% if(list[i].isAdmin) {%>
+                                                <span>true</span>
+                                                <%} else {%>
+                                                    <span>false</span>
+                                                    <%}%>
                                         </td>
 
                                         <td class="operate">
-                                            <a getId="<%= list[i]._id %>" class="update">修改</a>
-                                            <a href="/users/delete?id=<%= list[i]._id %>" class="delete">删除</a>
+                                            <% if(list[i].isAdmin) {%>
+                                                <a getId="<%= list[i]._id %>" class="update">修改</a>
+                                                <%} else {%>
+                                                    <a getId="<%= list[i]._id %>" class="update">修改</a>
+                                                    <a href="/users/delete?id=<%= list[i]._id %>" class="delete">删除</a>
+                                                    <%}%>
                                         </td>
                                     </tr>
                                     <%}%>
@@ -136,8 +144,13 @@
 <script>
     $(document).ready(function () {
         var isAdmin = getCookie("isAdmin");
-        // isAdmin === "ture" ? ($.trim($("#tbody").children(".ejsAdm").html() === "ture" ? $(".update").hide()));
+        // var clear = $("td[innerHTMl='true']");
+        // $.trim($("tr").children(".ejsAdm").html() === "ture" ? $(this).children(".update").hide() : $(this).children(".update").show());
+        $(".update").click(function () {
+            $(".update-box").fadeIn();
+        })
         //通过事件委托来获取当前行的数据
+
         $(function () {
             $("#tbody").on("click", "tr", function (event) {
                 var target = $(event.target);
@@ -155,8 +168,6 @@
                 //修改“修改表单”里男或女两个CheckBox的默认选定
                 $.trim(target.parents("tr").children(".ejsSex").html()) == "男" ? $(".sex").attr("checked", true) : $(".sex1").attr("checked", true);
 
-                //显示修改框
-                $(".update-box").fadeIn();
             })
         });
 
@@ -164,6 +175,10 @@
         $(".cancel").click(function () {
             $(".update-box").fadeOut();
         });
-
+        $($(".bms-menu").children("li")).hover(function () {
+            $(this).stop().animate({ "height": "120px", "line-height": "120px", "font-size": "20px" }).siblings().stop().animate({ "height": "60px", "line-height": "60px", "font-size": "14px" })
+        }, function () {
+            $(".bms-menu").children("li").stop().animate({ "height": "80px", "line-height": "80px", "font-size": "16px" })
+        })
     })
 </script>

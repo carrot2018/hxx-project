@@ -15,7 +15,8 @@ $(document).ready(function () {
             deleteCookie("isAdmin");
             window.location.reload();
         }
-    })
+    });
+
 })
 
 
