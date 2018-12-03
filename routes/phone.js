@@ -131,6 +131,8 @@ router.post('/addPhone', upload.single('file'), function (req, res) {
 router.post('/update', upload.single('file'), function (req, res) {
     var filename = 'phoneImg/' + new Date().getTime() + '_' + req.file.originalname;
     var newFileName = path.resolve(__dirname, '../public/', filename);
+    var data = fs.readFileSync(req.file.path);
+    fs.writeFileSync(newFileName, data);
     var idupdate = req.body.postId;
     var phoneName1 = req.body.phoneName1;
     var brand1 = req.body.brand1;
@@ -152,6 +154,7 @@ router.post('/update', upload.single('file'), function (req, res) {
         }, {
                 $set: {
                     phoneName: phoneName1,
+                    fileName: filename,
                     brand: brand1,
                     gfPrice: gfPrice1,
                     esPrice: esPrice1
